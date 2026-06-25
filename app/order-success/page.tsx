@@ -1,10 +1,19 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 
 export default function OrderSuccessPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-cream" />}>
+      <OrderSuccessContent />
+    </Suspense>
+  )
+}
+
+function OrderSuccessContent() {
   const searchParams = useSearchParams()
   const orderId = searchParams.get('id') || ''
   const paymentStatus = searchParams.get('payment') || 'unpaid'

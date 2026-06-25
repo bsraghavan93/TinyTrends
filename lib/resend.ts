@@ -1,7 +1,5 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 const ADMIN_EMAIL = 'bsraghavan93@gmail.com'
 
 export async function sendOrderNotification(order: {
@@ -12,7 +10,10 @@ export async function sendOrderNotification(order: {
   payment_status: string
   items: any[]
 }) {
+  if (!process.env.RESEND_API_KEY) return
+
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY)
     const itemsList = order.items
       .map(
         (item: any) =>

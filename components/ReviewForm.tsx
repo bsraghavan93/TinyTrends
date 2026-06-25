@@ -14,7 +14,7 @@ export default function ReviewForm({ onClose, onSubmitted }: Props) {
   const [productId, setProductId] = useState('')
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<{ id: string; name: string }[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [hoveredStar, setHoveredStar] = useState(0)
 

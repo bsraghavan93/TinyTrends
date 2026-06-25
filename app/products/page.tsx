@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { Suspense, useEffect, useState, useCallback } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Product } from '@/lib/types'
 import { supabase } from '@/lib/supabase'
@@ -12,6 +12,14 @@ import ProductModal from '@/components/ProductModal'
 const ITEMS_PER_PAGE = 12
 
 export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-cream" />}>
+      <ProductsContent />
+    </Suspense>
+  )
+}
+
+function ProductsContent() {
   const searchParams = useSearchParams()
   const initialCategory = searchParams.get('category') || ''
 
