@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/lib/cart'
+import { saveLocalOrder } from '@/lib/local-orders'
 import Navbar from '@/components/Navbar'
 
 const UPI_ID = 'yourbusiness@upi'
@@ -49,24 +50,28 @@ export default function CheckoutPage() {
     const paymentStatus = paymentMethod === 'upi' ? 'paid' : 'unpaid'
 
     try {
-      await fetch('/api/orders', {
+      const orderData = {
+        order_id: orderId,
+        customer_name: form.name,
+        customer_phone: form.phone,
+        customer_email: form.email,
+        address: form.address,
+        city: form.city,
+        notes: form.notes,
+        items,
+        total,
+        status: 'pending',
+        payment_status: paymentStatus,
+        upi_ref: form.upiRef,
+      }
+
+      saveLocalOrder(orderData)
+
+      fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          order_id: orderId,
-          customer_name: form.name,
-          customer_phone: form.phone,
-          customer_email: form.email,
-          address: form.address,
-          city: form.city,
-          notes: form.notes,
-          items,
-          total,
-          status: 'pending',
-          payment_status: paymentStatus,
-          upi_ref: form.upiRef,
-        }),
-      })
+        body: JSON.stringify(orderData),
+      }).catch(() => {})
 
       const itemsText = items
         .map(

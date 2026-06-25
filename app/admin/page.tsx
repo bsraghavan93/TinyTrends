@@ -4,6 +4,7 @@ import { Suspense, useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { Product, Order } from '@/lib/types'
+import { getLocalOrders, updateLocalOrder } from '@/lib/local-orders'
 
 const ADMIN_EMAIL = 'admin@tinytrend.in'
 const ADMIN_PASSWORD = 'admin123'
@@ -230,7 +231,15 @@ function AdminContent() {
   // Orders
   async function fetchOrders() {
     const { data } = await supabase.from('orders').select('*').order('created_at', { ascending: false })
-    setOrders(data || [])
+    const supabaseOrders = data || []
+    const localOrders = getLocalOrders()
+    const supabaseIds = new Set(supabaseOrders.map((o: any) => o.order_id))
+    const merged = [
+      ...supabaseOrders,
+      ...localOrders.filter((o: any) => !supabaseIds.has(o.order_id)),
+    ]
+    merged.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    setOrders(merged)
   }
 
   async function updateOrderStatus(orderId: string, status: string, paymentStatus?: string, upiRef?: string) {
@@ -238,6 +247,7 @@ function AdminContent() {
     if (paymentStatus) update.payment_status = paymentStatus
     if (upiRef) update.upi_ref = upiRef
     await supabase.from('orders').update(update).eq('id', orderId)
+    updateLocalOrder(orderId, update)
     setConfirmPopup(null)
     setConfirmUpiRef('')
     fetchOrders()
