@@ -51,7 +51,7 @@ export default function PortfolioBanner() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="/admin"
+            href="/admin?demo=true"
             className="inline-flex items-center gap-2 bg-coral-400 hover:bg-coral-500 text-white font-bold px-8 py-4 rounded-full shadow-lg shadow-coral-400/30 transition-all hover:shadow-xl hover:-translate-y-0.5"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,11 +81,7 @@ export default function PortfolioBanner() {
           </a>
         </div>
 
-        <p className="text-gray-500 text-sm mt-6">
-          Admin login: admin@tinytrend.in / admin123
-        </p>
-
-        <p className="text-gray-500 text-sm mt-4">
+        <p className="text-gray-500 text-sm mt-8">
           Contact us for pricing &middot; Delivered in a week &middot; Website maintenance packages available
         </p>
       </div>

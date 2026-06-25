@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { Suspense, useState, useEffect, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { Product, Order } from '@/lib/types'
 
@@ -15,9 +16,20 @@ const AGE_GROUPS = ['Newborn (0-6M)', 'Infant (6-12M)', 'Toddler (1-3Y)', 'Kids 
 const GENDERS = ['Boys', 'Girls', 'Unisex']
 
 export default function AdminPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-cream" />}>
+      <AdminContent />
+    </Suspense>
+  )
+}
+
+function AdminContent() {
+  const searchParams = useSearchParams()
+  const isDemo = searchParams.get('demo') === 'true'
+
   const [authenticated, setAuthenticated] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState(isDemo ? ADMIN_EMAIL : '')
+  const [password, setPassword] = useState(isDemo ? ADMIN_PASSWORD : '')
   const [loginError, setLoginError] = useState('')
   const [activeTab, setActiveTab] = useState<'products' | 'orders'>('products')
 
