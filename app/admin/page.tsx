@@ -348,61 +348,93 @@ function AdminContent() {
               <input type="text" value={productSearch} onChange={(e) => { setProductSearch(e.target.value); setProductPage(1) }} placeholder="Search products..." className="w-full max-w-md px-4 py-2 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-coral-400 outline-none" />
             </div>
 
-            {/* Product Table */}
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="bg-gray-50 text-charcoal/50 text-left">
-                    <tr>
-                      <th className="px-4 py-3 font-medium">Product</th>
-                      <th className="px-4 py-3 font-medium">Category</th>
-                      <th className="px-4 py-3 font-medium">Price</th>
-                      <th className="px-4 py-3 font-medium">Stock</th>
-                      <th className="px-4 py-3 font-medium">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    {paginatedProducts.map((p) => (
-                      <tr key={p.id} className="hover:bg-gray-50">
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                              {p.images?.[0] && <img src={p.images[0]} alt="" className="w-full h-full object-cover" />}
-                            </div>
-                            <span className="font-medium text-charcoal truncate max-w-[200px]">{p.name}</span>
-                          </div>
-                        </td>
-                        <td className="px-4 py-3 text-charcoal/50">{p.category}</td>
-                        <td className="px-4 py-3 font-medium text-charcoal">₹{p.price}</td>
-                        <td className="px-4 py-3">
-                          <span className={`text-xs font-medium px-2 py-1 rounded-full ${p.in_stock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                            {p.in_stock ? 'In Stock' : 'OOS'}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-2">
-                            <button onClick={() => openEditForm(p)} className="text-blue-500 hover:text-blue-600 text-xs font-medium">Edit</button>
-                            <button onClick={() => toggleStock(p)} className={`text-xs font-medium ${p.in_stock ? 'text-red-400 hover:text-red-500' : 'text-green-500 hover:text-green-600'}`}>
-                              {p.in_stock ? 'Mark OOS' : 'Mark In Stock'}
-                            </button>
-                            {(p.sizes?.length > 0 || p.colors?.length > 0) && (
-                              <button onClick={() => openStockModal(p)} className="text-purple-500 hover:text-purple-600 text-xs font-medium">Stock</button>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              {productPages > 1 && (
-                <div className="flex items-center justify-between px-4 py-3 border-t bg-gray-50">
-                  <button onClick={() => setProductPage(Math.max(1, productPage - 1))} disabled={productPage === 1} className="text-sm text-charcoal/50 disabled:opacity-30">Previous</button>
-                  <span className="text-sm text-charcoal/40">Page {productPage} of {productPages}</span>
-                  <button onClick={() => setProductPage(Math.min(productPages, productPage + 1))} disabled={productPage === productPages} className="text-sm text-charcoal/50 disabled:opacity-30">Next</button>
+            {/* Product Cards — Mobile */}
+            <div className="md:hidden space-y-3">
+              {paginatedProducts.map((p) => (
+                <div key={p.id} className="bg-white rounded-xl shadow-sm p-4">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-14 h-14 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                      {p.images?.[0] && <img src={p.images[0]} alt="" className="w-full h-full object-cover" />}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-medium text-charcoal text-sm truncate">{p.name}</h4>
+                      <p className="text-xs text-charcoal/40">{p.category}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="font-bold text-charcoal">₹{p.price}</span>
+                        <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${p.in_stock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                          {p.in_stock ? 'In Stock' : 'OOS'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 border-t pt-3">
+                    <button onClick={() => openEditForm(p)} className="flex-1 py-2 bg-blue-50 text-blue-600 text-xs font-semibold rounded-lg hover:bg-blue-100 transition-colors">Edit</button>
+                    <button onClick={() => toggleStock(p)} className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-colors ${p.in_stock ? 'bg-red-50 text-red-500 hover:bg-red-100' : 'bg-green-50 text-green-600 hover:bg-green-100'}`}>
+                      {p.in_stock ? 'Mark OOS' : 'In Stock'}
+                    </button>
+                    {(p.sizes?.length > 0 || p.colors?.length > 0) && (
+                      <button onClick={() => openStockModal(p)} className="flex-1 py-2 bg-purple-50 text-purple-600 text-xs font-semibold rounded-lg hover:bg-purple-100 transition-colors">Variants</button>
+                    )}
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
+
+            {/* Product Table — Desktop */}
+            <div className="hidden md:block bg-white rounded-xl shadow-sm overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50 text-charcoal/50 text-left">
+                  <tr>
+                    <th className="px-4 py-3 font-medium">Product</th>
+                    <th className="px-4 py-3 font-medium">Category</th>
+                    <th className="px-4 py-3 font-medium">Price</th>
+                    <th className="px-4 py-3 font-medium">Stock</th>
+                    <th className="px-4 py-3 font-medium">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {paginatedProducts.map((p) => (
+                    <tr key={p.id} className="hover:bg-gray-50">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                            {p.images?.[0] && <img src={p.images[0]} alt="" className="w-full h-full object-cover" />}
+                          </div>
+                          <span className="font-medium text-charcoal truncate max-w-[200px]">{p.name}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-charcoal/50">{p.category}</td>
+                      <td className="px-4 py-3 font-medium text-charcoal">₹{p.price}</td>
+                      <td className="px-4 py-3">
+                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${p.in_stock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                          {p.in_stock ? 'In Stock' : 'OOS'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <button onClick={() => openEditForm(p)} className="text-blue-500 hover:text-blue-600 text-xs font-medium">Edit</button>
+                          <button onClick={() => toggleStock(p)} className={`text-xs font-medium ${p.in_stock ? 'text-red-400 hover:text-red-500' : 'text-green-500 hover:text-green-600'}`}>
+                            {p.in_stock ? 'Mark OOS' : 'Mark In Stock'}
+                          </button>
+                          {(p.sizes?.length > 0 || p.colors?.length > 0) && (
+                            <button onClick={() => openStockModal(p)} className="text-purple-500 hover:text-purple-600 text-xs font-medium">Stock</button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Pagination */}
+            {productPages > 1 && (
+              <div className="flex items-center justify-between px-4 py-3 mt-3 bg-white rounded-xl shadow-sm">
+                <button onClick={() => setProductPage(Math.max(1, productPage - 1))} disabled={productPage === 1} className="text-sm text-charcoal/50 disabled:opacity-30">Previous</button>
+                <span className="text-sm text-charcoal/40">Page {productPage} of {productPages}</span>
+                <button onClick={() => setProductPage(Math.min(productPages, productPage + 1))} disabled={productPage === productPages} className="text-sm text-charcoal/50 disabled:opacity-30">Next</button>
+              </div>
+            )}
 
             {/* Product Form Modal */}
             {showForm && (
@@ -608,18 +640,34 @@ function AdminContent() {
             <div className="space-y-3">
               {paginatedOrders.map((order) => (
                 <div key={order.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
-                  <button onClick={() => setExpandedOrder(expandedOrder === order.id ? null : order.id)} className="w-full px-4 py-3 text-left flex items-center justify-between hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center gap-3">
+                  <button onClick={() => setExpandedOrder(expandedOrder === order.id ? null : order.id)} className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors">
+                    {/* Desktop row */}
+                    <div className="hidden sm:flex items-center justify-between">
                       <div>
                         <p className="font-medium text-charcoal">{order.customer_name}</p>
                         <p className="text-xs text-charcoal/40">{order.order_id}</p>
                       </div>
+                      <div className="flex items-center gap-2">
+                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${statusColors[order.status] || 'bg-gray-100'}`}>{order.status}</span>
+                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${order.payment_status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{order.payment_status}</span>
+                        <span className="font-semibold text-charcoal">₹{order.total}</span>
+                        <svg className={`w-4 h-4 text-charcoal/30 transition-transform ${expandedOrder === order.id ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${statusColors[order.status] || 'bg-gray-100'}`}>{order.status}</span>
-                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${order.payment_status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{order.payment_status}</span>
-                      <span className="font-semibold text-charcoal">₹{order.total}</span>
-                      <svg className={`w-4 h-4 text-charcoal/30 transition-transform ${expandedOrder === order.id ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                    {/* Mobile stacked */}
+                    <div className="sm:hidden">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="font-medium text-charcoal">{order.customer_name}</p>
+                        <span className="font-bold text-charcoal">₹{order.total}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <p className="text-xs text-charcoal/40">{order.order_id}</p>
+                        <div className="flex items-center gap-1.5">
+                          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${statusColors[order.status] || 'bg-gray-100'}`}>{order.status}</span>
+                          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${order.payment_status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{order.payment_status}</span>
+                          <svg className={`w-4 h-4 text-charcoal/30 transition-transform ${expandedOrder === order.id ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                        </div>
+                      </div>
                     </div>
                   </button>
 
@@ -635,8 +683,25 @@ function AdminContent() {
                       {order.notes && <div className="text-sm mb-2"><p className="text-charcoal/40 text-xs">Notes</p><p className="text-charcoal">{order.notes}</p></div>}
                       {order.upi_ref && <div className="text-sm mb-2"><p className="text-charcoal/40 text-xs">UPI Ref</p><p className="text-charcoal font-mono">{order.upi_ref}</p></div>}
 
-                      {/* Items table */}
-                      <div className="bg-gray-50 rounded-lg p-3 mt-2 mb-3">
+                      {/* Items — Mobile cards */}
+                      <div className="sm:hidden space-y-2 mt-2 mb-3">
+                        {(order.items || []).map((item: any, i: number) => (
+                          <div key={i} className="bg-gray-50 rounded-lg p-3">
+                            <div className="flex items-center justify-between">
+                              <p className="text-sm font-medium text-charcoal">{item.product?.name}</p>
+                              <p className="text-sm font-bold text-charcoal">₹{(item.product?.price || 0) * item.quantity}</p>
+                            </div>
+                            <div className="flex items-center gap-2 mt-1">
+                              {(item.selectedColor?.name || item.selectedSize) && (
+                                <span className="text-xs text-charcoal/50">{[item.selectedColor?.name, item.selectedSize].filter(Boolean).join(' / ')}</span>
+                              )}
+                              <span className="text-xs text-charcoal/40">x{item.quantity}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {/* Items — Desktop table */}
+                      <div className="hidden sm:block bg-gray-50 rounded-lg p-3 mt-2 mb-3">
                         <table className="w-full text-sm">
                           <thead><tr className="text-charcoal/40 text-xs"><th className="text-left py-1">Item</th><th className="text-left py-1">Variant</th><th className="text-right py-1">Qty</th><th className="text-right py-1">Subtotal</th></tr></thead>
                           <tbody>
