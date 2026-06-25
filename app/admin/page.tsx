@@ -440,7 +440,7 @@ function AdminContent() {
             {showForm && (
               <div className="fixed inset-0 z-50 flex items-end sm:items-start sm:justify-center sm:overflow-y-auto sm:py-8 sm:px-4">
                 <div className="absolute inset-0 bg-black/50" onClick={() => setShowForm(false)} />
-                <div className="relative bg-white w-full sm:max-w-2xl sm:rounded-2xl rounded-t-2xl shadow-xl max-h-[95vh] sm:max-h-none flex flex-col overflow-hidden">
+                <div className="relative bg-white w-full sm:max-w-2xl sm:rounded-2xl rounded-t-2xl shadow-xl max-h-[85vh] mt-auto sm:mt-0 sm:max-h-none flex flex-col overflow-hidden">
                   {/* Header */}
                   <div className="flex items-center justify-between p-4 sm:p-6 border-b flex-shrink-0">
                     <h3 className="font-heading text-lg sm:text-xl font-bold text-charcoal">{editingProduct ? 'Edit Product' : 'Add Product'}</h3>
