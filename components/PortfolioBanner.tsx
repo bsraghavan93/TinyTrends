@@ -44,7 +44,7 @@ export default function PortfolioBanner() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="https://wa.me/919942384380?text=Hi%2C%20I%20saw%20the%20TinyTrend%20demo%20store%20and%20I%E2%80%99m%20interested%20in%20getting%20a%20similar%20website%20for%20my%20brand."
+            href="https://wa.me/917904072714?text=Hi%2C%20I%20saw%20the%20TinyTrend%20demo%20store%20and%20I%E2%80%99m%20interested%20in%20getting%20a%20similar%20website%20for%20my%20brand."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-teal-400 hover:bg-teal-500 text-charcoal font-bold px-8 py-4 rounded-full shadow-lg shadow-teal-400/30 transition-all hover:shadow-xl hover:-translate-y-0.5"
@@ -66,7 +66,7 @@ export default function PortfolioBanner() {
         </div>
 
         <p className="text-gray-500 text-sm mt-8">
-          Starting at ₹14,999 &middot; 7-day delivery &middot; Full source code ownership
+          Contact us for pricing &middot; Delivered in a week &middot; Website maintenance packages available
         </p>
       </div>
     </section>

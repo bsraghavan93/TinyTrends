@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation'
 import { useCart } from '@/lib/cart'
 import Navbar from '@/components/Navbar'
 
-const UPI_ID = 'adithyarajendran27@okicici'
-const WHATSAPP_NUMBER = '919942384380'
+const UPI_ID = 'yourbusiness@upi'
+const WHATSAPP_NUMBER = '917904072714'
 
 function generateOrderId() {
   const now = new Date()
