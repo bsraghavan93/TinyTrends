@@ -24,7 +24,12 @@ export default function PortfolioBanner() {
           payment integration, and order management — all tailored to your brand.
         </p>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <div className="bg-gradient-to-r from-teal-400/10 to-coral-400/10 border border-white/10 rounded-2xl p-6 mb-10 backdrop-blur-sm">
+          <p className="text-lg font-semibold text-white mb-2">Every page is fully customizable to match your brand</p>
+          <p className="text-sm text-gray-400">Revenue dashboards, order analytics, inventory management, and more — all included and tailored to your business needs.</p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
           {[
             { label: 'Product Management', icon: '📦' },
             { label: 'Order Tracking', icon: '📋' },
@@ -32,8 +37,10 @@ export default function PortfolioBanner() {
             { label: 'WhatsApp Orders', icon: '💬' },
             { label: 'Mobile Optimized', icon: '📱' },
             { label: 'Admin Dashboard', icon: '📊' },
+            { label: 'Revenue Dashboard', icon: '💰' },
             { label: 'Stock Control', icon: '🏷️' },
             { label: 'Email Alerts', icon: '📧' },
+            { label: 'Fully Customizable', icon: '🎨' },
           ].map((feature) => (
             <div key={feature.label} className="bg-white/5 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10">
               <span className="text-2xl mb-2 block">{feature.icon}</span>
@@ -43,6 +50,15 @@ export default function PortfolioBanner() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/admin"
+            className="inline-flex items-center gap-2 bg-coral-400 hover:bg-coral-500 text-white font-bold px-8 py-4 rounded-full shadow-lg shadow-coral-400/30 transition-all hover:shadow-xl hover:-translate-y-0.5"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+            </svg>
+            Try Admin Portal
+          </a>
           <a
             href="https://wa.me/917904072714?text=Hi%2C%20I%20saw%20the%20TinyTrend%20demo%20store%20and%20I%E2%80%99m%20interested%20in%20getting%20a%20similar%20website%20for%20my%20brand."
             target="_blank"
@@ -65,7 +81,11 @@ export default function PortfolioBanner() {
           </a>
         </div>
 
-        <p className="text-gray-500 text-sm mt-8">
+        <p className="text-gray-500 text-sm mt-6">
+          Admin login: admin@tinytrend.in / admin123
+        </p>
+
+        <p className="text-gray-500 text-sm mt-4">
           Contact us for pricing &middot; Delivered in a week &middot; Website maintenance packages available
         </p>
       </div>

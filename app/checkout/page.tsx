@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/lib/cart'
 import Navbar from '@/components/Navbar'
-import { getWhatsAppNumber } from '@/lib/whatsapp'
 
 const UPI_ID = 'yourbusiness@upi'
 
@@ -80,7 +79,8 @@ export default function CheckoutPage() {
         `🛍️ *TinyTrend Kids — New Order*\n\n📋 Order ID: ${orderId}\n💳 Payment: ${paymentStatus === 'paid' ? '✅ Paid' : '⏳ Unpaid'}${form.upiRef ? `\n🔗 UPI Ref: ${form.upiRef}` : ''}\n\n👤 ${form.name}\n📞 ${form.phone}${form.email ? `\n📧 ${form.email}` : ''}${form.city ? `\n🏙️ ${form.city}` : ''}\n📍 ${form.address}${form.notes ? `\n📝 ${form.notes}` : ''}\n\n📦 Items:\n${itemsText}\n\n💰 *Total: ₹${total}*`
       )
 
-      window.open(`https://wa.me/${getWhatsAppNumber()}?text=${whatsappMsg}`, '_blank')
+      const customerNumber = form.phone.replace(/[\s\-\+\(\)]/g, '')
+      window.open(`https://wa.me/${customerNumber}?text=${whatsappMsg}`, '_blank')
 
       clearCart()
       router.push(`/order-success?id=${orderId}&payment=${paymentStatus}`)
@@ -256,6 +256,12 @@ export default function CheckoutPage() {
                   </p>
                 </div>
               )}
+
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4">
+                <p className="text-xs text-blue-600 text-center">
+                  This is a demo store. The order confirmation will be sent to your own WhatsApp number so you can see how it works.
+                </p>
+              </div>
 
               <button
                 onClick={handlePlaceOrder}

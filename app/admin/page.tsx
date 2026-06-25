@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Product, Order } from '@/lib/types'
-import { getWhatsAppNumber, setWhatsAppNumber } from '@/lib/whatsapp'
 
 const ADMIN_EMAIL = 'admin@tinytrend.in'
 const ADMIN_PASSWORD = 'admin123'
@@ -19,7 +18,6 @@ export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [whatsapp, setWhatsapp] = useState('')
   const [loginError, setLoginError] = useState('')
   const [activeTab, setActiveTab] = useState<'products' | 'orders'>('products')
 
@@ -73,7 +71,6 @@ export default function AdminPage() {
         if (data?.session) setAuthenticated(true)
       }).catch(() => {})
     }
-    setWhatsapp(getWhatsAppNumber())
   }, [])
 
   useEffect(() => {
@@ -87,12 +84,7 @@ export default function AdminPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoginError('')
-    if (!whatsapp.trim()) {
-      setLoginError('WhatsApp number is required')
-      return
-    }
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-      setWhatsAppNumber(whatsapp)
       localStorage.setItem('tinytrend_admin_auth', 'true')
       setAuthenticated(true)
       return
@@ -101,7 +93,6 @@ export default function AdminPage() {
     if (error) {
       setLoginError('Invalid email or password')
     } else {
-      setWhatsAppNumber(whatsapp)
       setAuthenticated(true)
     }
   }
@@ -287,11 +278,6 @@ export default function AdminPage() {
           <form onSubmit={handleLogin} className="space-y-4">
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required className="w-full px-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-coral-400 outline-none" />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required className="w-full px-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-coral-400 outline-none" />
-            <div>
-              <label className="block text-sm font-medium text-charcoal/70 mb-1">WhatsApp Number *</label>
-              <input type="tel" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="+91 79040 72714" required className="w-full px-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-coral-400 outline-none" />
-              <p className="text-xs text-charcoal/40 mt-1">Orders will be sent to this WhatsApp number</p>
-            </div>
             {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
             <button type="submit" className="w-full bg-coral-400 hover:bg-coral-500 text-white font-semibold py-3 rounded-xl transition-all">Login</button>
           </form>
@@ -317,10 +303,7 @@ export default function AdminPage() {
               <button onClick={() => setActiveTab('orders')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'orders' ? 'bg-coral-400 text-white' : 'text-charcoal/50 hover:bg-gray-100'}`}>Orders</button>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-charcoal/40 hidden sm:inline">WA: {getWhatsAppNumber()}</span>
-            <button onClick={handleLogout} className="text-sm text-charcoal/50 hover:text-charcoal">Logout</button>
-          </div>
+          <button onClick={handleLogout} className="text-sm text-charcoal/50 hover:text-charcoal">Logout</button>
         </div>
       </header>
 
