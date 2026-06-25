@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/lib/cart'
 import Navbar from '@/components/Navbar'
+import { getWhatsAppNumber } from '@/lib/whatsapp'
 
 const UPI_ID = 'yourbusiness@upi'
-const WHATSAPP_NUMBER = '917904072714'
 
 function generateOrderId() {
   const now = new Date()
@@ -80,7 +80,7 @@ export default function CheckoutPage() {
         `🛍️ *TinyTrend Kids — New Order*\n\n📋 Order ID: ${orderId}\n💳 Payment: ${paymentStatus === 'paid' ? '✅ Paid' : '⏳ Unpaid'}${form.upiRef ? `\n🔗 UPI Ref: ${form.upiRef}` : ''}\n\n👤 ${form.name}\n📞 ${form.phone}${form.email ? `\n📧 ${form.email}` : ''}${form.city ? `\n🏙️ ${form.city}` : ''}\n📍 ${form.address}${form.notes ? `\n📝 ${form.notes}` : ''}\n\n📦 Items:\n${itemsText}\n\n💰 *Total: ₹${total}*`
       )
 
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMsg}`, '_blank')
+      window.open(`https://wa.me/${getWhatsAppNumber()}?text=${whatsappMsg}`, '_blank')
 
       clearCart()
       router.push(`/order-success?id=${orderId}&payment=${paymentStatus}`)
