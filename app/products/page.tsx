@@ -41,8 +41,9 @@ function ProductsContent() {
         .select('*')
         .neq('category', 'Customer Review')
         .order('created_at', { ascending: false })
-      setProducts(data || [])
-      const cats: string[] = [...new Set((data || []).map((p: Product) => p.category))]
+      const items = (data || []) as Product[]
+      setProducts(items)
+      const cats = [...new Set(items.map((p) => p.category))]
       setCategories(cats)
       setLoading(false)
     }
