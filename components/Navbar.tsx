@@ -30,6 +30,7 @@ export default function Navbar() {
               <Link href="/products" className="text-charcoal/70 hover:text-coral-400 font-medium transition-colors">Shop</Link>
               <a href="#collections" className="text-charcoal/70 hover:text-coral-400 font-medium transition-colors">Collections</a>
               <a href="#reviews" className="text-charcoal/70 hover:text-coral-400 font-medium transition-colors">Reviews</a>
+              <Link href="/admin" className="text-charcoal/70 hover:text-coral-400 font-medium transition-colors">Admin</Link>
             </div>
 
             <div className="flex items-center gap-4">
@@ -63,6 +64,7 @@ export default function Navbar() {
                 <Link href="/products" onClick={() => setMenuOpen(false)} className="text-charcoal/70 hover:text-coral-400 font-medium py-2">Shop</Link>
                 <a href="#collections" onClick={() => setMenuOpen(false)} className="text-charcoal/70 hover:text-coral-400 font-medium py-2">Collections</a>
                 <a href="#reviews" onClick={() => setMenuOpen(false)} className="text-charcoal/70 hover:text-coral-400 font-medium py-2">Reviews</a>
+                <Link href="/admin" onClick={() => setMenuOpen(false)} className="text-charcoal/70 hover:text-coral-400 font-medium py-2">Admin</Link>
               </div>
             </div>
           )}
