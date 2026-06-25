@@ -438,125 +438,150 @@ function AdminContent() {
 
             {/* Product Form Modal */}
             {showForm && (
-              <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto py-8 px-4">
+              <div className="fixed inset-0 z-50 flex items-end sm:items-start sm:justify-center sm:overflow-y-auto sm:py-8 sm:px-4">
                 <div className="absolute inset-0 bg-black/50" onClick={() => setShowForm(false)} />
-                <div className="relative bg-white rounded-2xl p-6 w-full max-w-2xl shadow-xl">
-                  <h3 className="font-heading text-xl font-bold text-charcoal mb-4">{editingProduct ? 'Edit Product' : 'Add Product'}</h3>
-                  <form onSubmit={handleSaveProduct} className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="col-span-2">
-                        <label className="block text-sm font-medium text-charcoal mb-1">Name *</label>
-                        <input type="text" value={formName} onChange={(e) => setFormName(e.target.value)} required className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal mb-1">Price (₹)</label>
-                        <input type="number" value={formPrice} onChange={(e) => setFormPrice(e.target.value)} className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal mb-1">Category *</label>
-                        <select value={formCategory} onChange={(e) => setFormCategory(e.target.value)} required className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
-                          <option value="">Select...</option>
-                          {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
-                          <option value="__new__">+ New Category</option>
-                        </select>
-                      </div>
-                      {formCategory === '__new__' && (
-                        <div className="col-span-2">
-                          <input type="text" value={formNewCategory} onChange={(e) => setFormNewCategory(e.target.value)} placeholder="New category name" className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" />
+                <div className="relative bg-white w-full sm:max-w-2xl sm:rounded-2xl rounded-t-2xl shadow-xl max-h-[95vh] sm:max-h-none flex flex-col overflow-hidden">
+                  {/* Header */}
+                  <div className="flex items-center justify-between p-4 sm:p-6 border-b flex-shrink-0">
+                    <h3 className="font-heading text-lg sm:text-xl font-bold text-charcoal">{editingProduct ? 'Edit Product' : 'Add Product'}</h3>
+                    <button type="button" onClick={() => setShowForm(false)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                      <svg className="w-5 h-5 text-charcoal/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                  </div>
+
+                  {/* Scrollable form body */}
+                  <form onSubmit={handleSaveProduct} className="flex flex-col flex-1 overflow-hidden">
+                    <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
+
+                      {/* Basic Info */}
+                      <div className="space-y-3">
+                        <p className="text-xs font-semibold text-charcoal/40 uppercase tracking-wider">Basic Info</p>
+                        <div>
+                          <label className="block text-sm font-medium text-charcoal mb-1">Name *</label>
+                          <input type="text" value={formName} onChange={(e) => setFormName(e.target.value)} required className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" />
                         </div>
-                      )}
-                      <div className="col-span-2">
-                        <label className="block text-sm font-medium text-charcoal mb-1">Description</label>
-                        <textarea value={formDescription} onChange={(e) => setFormDescription(e.target.value)} rows={3} className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none resize-none" />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal mb-1">Age Group</label>
-                        <select value={formAgeGroup} onChange={(e) => setFormAgeGroup(e.target.value)} className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
-                          <option value="">Select...</option>
-                          {AGE_GROUPS.map((a) => <option key={a} value={a}>{a}</option>)}
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal mb-1">Gender</label>
-                        <select value={formGender} onChange={(e) => setFormGender(e.target.value)} className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
-                          <option value="">Select...</option>
-                          {GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal mb-1">Material</label>
-                        <select value={formMaterial} onChange={(e) => setFormMaterial(e.target.value)} className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
-                          <option value="">Select...</option>
-                          {MATERIALS.map((m) => <option key={m} value={m}>{m}</option>)}
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-charcoal mb-1">Fit Type</label>
-                        <select value={formFitType} onChange={(e) => setFormFitType(e.target.value)} className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
-                          <option value="">Select...</option>
-                          {FIT_TYPES.map((f) => <option key={f} value={f}>{f}</option>)}
-                        </select>
-                      </div>
-                      <div className="col-span-2">
-                        <label className="block text-sm font-medium text-charcoal mb-1">Care Instructions</label>
-                        <input type="text" value={formCareInstructions} onChange={(e) => setFormCareInstructions(e.target.value)} placeholder="e.g., Machine Wash Cold" className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" />
-                      </div>
-                    </div>
-
-                    {/* Sizes */}
-                    <div>
-                      <label className="block text-sm font-medium text-charcoal mb-2">Sizes</label>
-                      <div className="flex flex-wrap gap-2">
-                        {SIZE_OPTIONS.map((s) => (
-                          <button key={s} type="button" onClick={() => toggleSize(s)} className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${formSizes.includes(s) ? 'bg-coral-400 text-white border-coral-400' : 'bg-white text-charcoal/50 border-gray-200 hover:border-coral-300'}`}>{s}</button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Colors */}
-                    <div>
-                      <label className="block text-sm font-medium text-charcoal mb-2">Colors</label>
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {formColors.map((c, i) => (
-                          <span key={i} className="inline-flex items-center gap-1.5 bg-gray-100 px-2 py-1 rounded-full text-sm">
-                            <span className="w-4 h-4 rounded-full border" style={{ backgroundColor: c.hex }} />
-                            {c.name}
-                            <button type="button" onClick={() => setFormColors(formColors.filter((_, j) => j !== i))} className="text-red-400 hover:text-red-500 ml-1">&times;</button>
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex gap-2">
-                        <input type="color" value={formColorHex} onChange={(e) => setFormColorHex(e.target.value)} className="w-10 h-10 rounded-lg border cursor-pointer" />
-                        <input type="text" value={formColorName} onChange={(e) => setFormColorName(e.target.value)} placeholder="Color name" className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addColor() } }} />
-                        <button type="button" onClick={addColor} className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors">Add</button>
-                      </div>
-                    </div>
-
-                    {/* Images */}
-                    <div>
-                      <label className="block text-sm font-medium text-charcoal mb-2">Images</label>
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {formImages.map((img, i) => (
-                          <div key={i} className="relative w-20 h-20 rounded-lg overflow-hidden group">
-                            <img src={img} alt="" className="w-full h-full object-cover" />
-                            <button type="button" onClick={() => setFormImages(formImages.filter((_, j) => j !== i))} className="absolute inset-0 bg-black/50 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">&times;</button>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-sm font-medium text-charcoal mb-1">Price (₹)</label>
+                            <input type="number" value={formPrice} onChange={(e) => setFormPrice(e.target.value)} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" />
                           </div>
-                        ))}
-                        {formNewImages.map((file, i) => (
-                          <div key={`new-${i}`} className="relative w-20 h-20 rounded-lg overflow-hidden border-2 border-green-400 group">
-                            <img src={URL.createObjectURL(file)} alt="" className="w-full h-full object-cover" />
-                            <span className="absolute top-1 left-1 bg-green-500 text-white text-[10px] px-1 rounded">NEW</span>
-                            <button type="button" onClick={() => setFormNewImages(formNewImages.filter((_, j) => j !== i))} className="absolute inset-0 bg-black/50 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">&times;</button>
+                          <div>
+                            <label className="block text-sm font-medium text-charcoal mb-1">Category *</label>
+                            <select value={formCategory} onChange={(e) => setFormCategory(e.target.value)} required className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
+                              <option value="">Select...</option>
+                              {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                              <option value="__new__">+ New Category</option>
+                            </select>
                           </div>
-                        ))}
+                        </div>
+                        {formCategory === '__new__' && (
+                          <input type="text" value={formNewCategory} onChange={(e) => setFormNewCategory(e.target.value)} placeholder="New category name" className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" />
+                        )}
+                        <div>
+                          <label className="block text-sm font-medium text-charcoal mb-1">Description</label>
+                          <textarea value={formDescription} onChange={(e) => setFormDescription(e.target.value)} rows={3} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none resize-none" />
+                        </div>
                       </div>
-                      <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={(e) => { if (e.target.files) setFormNewImages([...formNewImages, ...Array.from(e.target.files)]); e.target.value = '' }} />
-                      <button type="button" onClick={() => fileInputRef.current?.click()} className="text-sm text-coral-400 hover:text-coral-500 font-medium">+ Add Images</button>
+
+                      {/* Details */}
+                      <div className="space-y-3">
+                        <p className="text-xs font-semibold text-charcoal/40 uppercase tracking-wider">Details</p>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-sm font-medium text-charcoal mb-1">Age Group</label>
+                            <select value={formAgeGroup} onChange={(e) => setFormAgeGroup(e.target.value)} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
+                              <option value="">Select...</option>
+                              {AGE_GROUPS.map((a) => <option key={a} value={a}>{a}</option>)}
+                            </select>
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-charcoal mb-1">Gender</label>
+                            <select value={formGender} onChange={(e) => setFormGender(e.target.value)} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
+                              <option value="">Select...</option>
+                              {GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}
+                            </select>
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-charcoal mb-1">Material</label>
+                            <select value={formMaterial} onChange={(e) => setFormMaterial(e.target.value)} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
+                              <option value="">Select...</option>
+                              {MATERIALS.map((m) => <option key={m} value={m}>{m}</option>)}
+                            </select>
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-charcoal mb-1">Fit Type</label>
+                            <select value={formFitType} onChange={(e) => setFormFitType(e.target.value)} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none">
+                              <option value="">Select...</option>
+                              {FIT_TYPES.map((f) => <option key={f} value={f}>{f}</option>)}
+                            </select>
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-charcoal mb-1">Care Instructions</label>
+                          <input type="text" value={formCareInstructions} onChange={(e) => setFormCareInstructions(e.target.value)} placeholder="e.g., Machine Wash Cold" className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" />
+                        </div>
+                      </div>
+
+                      {/* Sizes */}
+                      <div className="space-y-2">
+                        <p className="text-xs font-semibold text-charcoal/40 uppercase tracking-wider">Sizes</p>
+                        <div className="flex flex-wrap gap-2">
+                          {SIZE_OPTIONS.map((s) => (
+                            <button key={s} type="button" onClick={() => toggleSize(s)} className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${formSizes.includes(s) ? 'bg-coral-400 text-white border-coral-400' : 'bg-white text-charcoal/50 border-gray-200 hover:border-coral-300'}`}>{s}</button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Colors */}
+                      <div className="space-y-2">
+                        <p className="text-xs font-semibold text-charcoal/40 uppercase tracking-wider">Colors</p>
+                        {formColors.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {formColors.map((c, i) => (
+                              <span key={i} className="inline-flex items-center gap-1.5 bg-gray-100 px-2.5 py-1 rounded-full text-sm">
+                                <span className="w-4 h-4 rounded-full border" style={{ backgroundColor: c.hex }} />
+                                {c.name}
+                                <button type="button" onClick={() => setFormColors(formColors.filter((_, j) => j !== i))} className="text-red-400 hover:text-red-500 ml-1">&times;</button>
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        <div className="flex gap-2">
+                          <input type="color" value={formColorHex} onChange={(e) => setFormColorHex(e.target.value)} className="w-10 h-10 rounded-lg border cursor-pointer flex-shrink-0" />
+                          <input type="text" value={formColorName} onChange={(e) => setFormColorName(e.target.value)} placeholder="Color name" className="flex-1 min-w-0 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-coral-400 outline-none" onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addColor() } }} />
+                          <button type="button" onClick={addColor} className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors flex-shrink-0">Add</button>
+                        </div>
+                      </div>
+
+                      {/* Images */}
+                      <div className="space-y-2">
+                        <p className="text-xs font-semibold text-charcoal/40 uppercase tracking-wider">Images</p>
+                        {(formImages.length > 0 || formNewImages.length > 0) && (
+                          <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
+                            {formImages.map((img, i) => (
+                              <div key={i} className="relative aspect-square rounded-lg overflow-hidden group">
+                                <img src={img} alt="" className="w-full h-full object-cover" />
+                                <button type="button" onClick={() => setFormImages(formImages.filter((_, j) => j !== i))} className="absolute inset-0 bg-black/50 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-lg">&times;</button>
+                              </div>
+                            ))}
+                            {formNewImages.map((file, i) => (
+                              <div key={`new-${i}`} className="relative aspect-square rounded-lg overflow-hidden border-2 border-green-400 group">
+                                <img src={URL.createObjectURL(file)} alt="" className="w-full h-full object-cover" />
+                                <span className="absolute top-1 left-1 bg-green-500 text-white text-[10px] px-1 rounded">NEW</span>
+                                <button type="button" onClick={() => setFormNewImages(formNewImages.filter((_, j) => j !== i))} className="absolute inset-0 bg-black/50 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-lg">&times;</button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={(e) => { if (e.target.files) setFormNewImages([...formNewImages, ...Array.from(e.target.files)]); e.target.value = '' }} />
+                        <button type="button" onClick={() => fileInputRef.current?.click()} className="text-sm text-coral-400 hover:text-coral-500 font-medium">+ Add Images</button>
+                      </div>
                     </div>
 
-                    <div className="flex gap-3 pt-4 border-t">
-                      <button type="button" onClick={() => setShowForm(false)} className="flex-1 py-2 border border-gray-200 rounded-xl text-charcoal/50 font-medium hover:bg-gray-50 transition-colors">Cancel</button>
-                      <button type="submit" disabled={saving} className="flex-1 py-2 bg-coral-400 hover:bg-coral-500 text-white font-semibold rounded-xl transition-all disabled:bg-gray-300">
+                    {/* Sticky footer buttons */}
+                    <div className="flex gap-3 p-4 sm:p-6 border-t bg-white flex-shrink-0">
+                      <button type="button" onClick={() => setShowForm(false)} className="flex-1 py-2.5 border border-gray-200 rounded-xl text-charcoal/50 font-medium hover:bg-gray-50 transition-colors">Cancel</button>
+                      <button type="submit" disabled={saving} className="flex-1 py-2.5 bg-coral-400 hover:bg-coral-500 text-white font-semibold rounded-xl transition-all disabled:bg-gray-300">
                         {saving ? 'Saving...' : editingProduct ? 'Update Product' : 'Add Product'}
                       </button>
                     </div>
@@ -673,58 +698,48 @@ function AdminContent() {
 
                   {expandedOrder === order.id && (
                     <div className="px-4 pb-4 border-t animate-fade-in">
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 py-3 text-sm">
-                        <div><p className="text-charcoal/40 text-xs">Phone</p><p className="text-charcoal">{order.customer_phone}</p></div>
-                        <div><p className="text-charcoal/40 text-xs">Email</p><p className="text-charcoal">{order.customer_email || '—'}</p></div>
-                        <div><p className="text-charcoal/40 text-xs">City</p><p className="text-charcoal">{order.city || '—'}</p></div>
-                        <div><p className="text-charcoal/40 text-xs">Date</p><p className="text-charcoal">{new Date(order.created_at).toLocaleString()}</p></div>
+                      {/* Customer info */}
+                      <div className="bg-gray-50 rounded-lg p-3 mt-3 space-y-2 text-sm">
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                          <div><p className="text-charcoal/40 text-xs">Phone</p><p className="text-charcoal font-medium">{order.customer_phone}</p></div>
+                          <div><p className="text-charcoal/40 text-xs">Date</p><p className="text-charcoal">{new Date(order.created_at).toLocaleDateString()}</p></div>
+                          {order.customer_email && <div><p className="text-charcoal/40 text-xs">Email</p><p className="text-charcoal break-all">{order.customer_email}</p></div>}
+                          {order.city && <div><p className="text-charcoal/40 text-xs">City</p><p className="text-charcoal">{order.city}</p></div>}
+                        </div>
+                        <div><p className="text-charcoal/40 text-xs">Address</p><p className="text-charcoal">{order.address}</p></div>
+                        {order.upi_ref && <div><p className="text-charcoal/40 text-xs">UPI Ref</p><p className="text-charcoal font-mono text-xs">{order.upi_ref}</p></div>}
+                        {order.notes && <div><p className="text-charcoal/40 text-xs">Notes</p><p className="text-charcoal italic">{order.notes}</p></div>}
                       </div>
-                      <div className="text-sm mb-2"><p className="text-charcoal/40 text-xs">Address</p><p className="text-charcoal">{order.address}</p></div>
-                      {order.notes && <div className="text-sm mb-2"><p className="text-charcoal/40 text-xs">Notes</p><p className="text-charcoal">{order.notes}</p></div>}
-                      {order.upi_ref && <div className="text-sm mb-2"><p className="text-charcoal/40 text-xs">UPI Ref</p><p className="text-charcoal font-mono">{order.upi_ref}</p></div>}
 
-                      {/* Items — Mobile cards */}
-                      <div className="sm:hidden space-y-2 mt-2 mb-3">
-                        {(order.items || []).map((item: any, i: number) => (
-                          <div key={i} className="bg-gray-50 rounded-lg p-3">
-                            <div className="flex items-center justify-between">
-                              <p className="text-sm font-medium text-charcoal">{item.product?.name}</p>
-                              <p className="text-sm font-bold text-charcoal">₹{(item.product?.price || 0) * item.quantity}</p>
+                      {/* Items */}
+                      <div className="mt-3 mb-3">
+                        <p className="text-xs font-semibold text-charcoal/40 uppercase tracking-wider mb-2">Items</p>
+                        <div className="space-y-2">
+                          {(order.items || []).map((item: any, i: number) => (
+                            <div key={i} className="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-2">
+                              <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium text-charcoal truncate">{item.product?.name}</p>
+                                <p className="text-xs text-charcoal/40">
+                                  {[item.selectedColor?.name, item.selectedSize].filter(Boolean).join(' / ')}
+                                  {(item.selectedColor?.name || item.selectedSize) && ' · '}
+                                  Qty: {item.quantity}
+                                </p>
+                              </div>
+                              <p className="text-sm font-bold text-charcoal ml-3 flex-shrink-0">₹{(item.product?.price || 0) * item.quantity}</p>
                             </div>
-                            <div className="flex items-center gap-2 mt-1">
-                              {(item.selectedColor?.name || item.selectedSize) && (
-                                <span className="text-xs text-charcoal/50">{[item.selectedColor?.name, item.selectedSize].filter(Boolean).join(' / ')}</span>
-                              )}
-                              <span className="text-xs text-charcoal/40">x{item.quantity}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                      {/* Items — Desktop table */}
-                      <div className="hidden sm:block bg-gray-50 rounded-lg p-3 mt-2 mb-3">
-                        <table className="w-full text-sm">
-                          <thead><tr className="text-charcoal/40 text-xs"><th className="text-left py-1">Item</th><th className="text-left py-1">Variant</th><th className="text-right py-1">Qty</th><th className="text-right py-1">Subtotal</th></tr></thead>
-                          <tbody>
-                            {(order.items || []).map((item: any, i: number) => (
-                              <tr key={i} className="border-t border-gray-200">
-                                <td className="py-2 text-charcoal">{item.product?.name}</td>
-                                <td className="py-2 text-charcoal/50">{[item.selectedColor?.name, item.selectedSize].filter(Boolean).join(' / ') || '—'}</td>
-                                <td className="py-2 text-right text-charcoal">{item.quantity}</td>
-                                <td className="py-2 text-right font-medium text-charcoal">₹{(item.product?.price || 0) * item.quantity}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                          ))}
+                        </div>
                       </div>
 
                       {/* Status actions */}
-                      <div className="flex flex-wrap gap-2">
+                      <p className="text-xs font-semibold text-charcoal/40 uppercase tracking-wider mb-2">Update Status</p>
+                      <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
                         {order.status === 'pending' && (
-                          <button onClick={() => setConfirmPopup(order.id)} className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-colors">Confirmed</button>
+                          <button onClick={() => setConfirmPopup(order.id)} className="py-2 sm:px-3 sm:py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold rounded-lg transition-colors">Confirm</button>
                         )}
-                        <button onClick={() => updateOrderStatus(order.id, 'shipped')} disabled={order.status === 'pending'} className="px-3 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-medium rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed" title={order.status === 'pending' ? 'Confirm the order first' : ''}>Shipped</button>
-                        <button onClick={() => updateOrderStatus(order.id, 'delivered')} disabled={order.status === 'pending'} className="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white text-xs font-medium rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed" title={order.status === 'pending' ? 'Confirm the order first' : ''}>Delivered</button>
-                        <button onClick={() => updateOrderStatus(order.id, 'cancelled')} className="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-xs font-medium rounded-lg transition-colors">Cancelled</button>
+                        <button onClick={() => updateOrderStatus(order.id, 'shipped')} disabled={order.status === 'pending'} className="py-2 sm:px-3 sm:py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-semibold rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed">Shipped</button>
+                        <button onClick={() => updateOrderStatus(order.id, 'delivered')} disabled={order.status === 'pending'} className="py-2 sm:px-3 sm:py-1.5 bg-green-500 hover:bg-green-600 text-white text-xs font-semibold rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed">Delivered</button>
+                        <button onClick={() => updateOrderStatus(order.id, 'cancelled')} className="py-2 sm:px-3 sm:py-1.5 bg-red-500 hover:bg-red-600 text-white text-xs font-semibold rounded-lg transition-colors">Cancel</button>
                       </div>
                     </div>
                   )}
