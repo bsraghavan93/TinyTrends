@@ -69,9 +69,9 @@ export default function AdminPage() {
     if (storedAuth === 'true') {
       setAuthenticated(true)
     } else {
-      supabase.auth.getSession().then(({ data }) => {
-        if (data.session) setAuthenticated(true)
-      })
+      supabase.auth.getSession().then(({ data }: any) => {
+        if (data?.session) setAuthenticated(true)
+      }).catch(() => {})
     }
     setWhatsapp(getWhatsAppNumber())
   }, [])
