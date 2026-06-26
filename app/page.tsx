@@ -17,13 +17,19 @@ const features = [
   { label: 'Fully Customizable', icon: '🎨', desc: 'Every page tailored to your brand', gradient: 'from-fuchsia-500/20 to-pink-500/20', border: 'hover:border-fuchsia-400/40' },
 ]
 
+const liveStores = [
+  { name: 'Kids Wear Store', icon: '👶', href: '/store', adminHref: '/admin?demo=true', gradient: 'from-violet-500/[0.1] via-fuchsia-500/[0.05] to-cyan-500/[0.1]', desc: 'Trendy kids clothing — dresses, ethnic wear, accessories with full cart & checkout.', tag: 'TinyTrend Kids' },
+  { name: 'Women\'s Boutique', icon: '👗', href: '/demos/boutique', adminHref: '/admin/boutique?demo=true', gradient: 'from-rose-500/[0.1] via-pink-500/[0.05] to-amber-500/[0.1]', desc: 'Sarees, kurtis, ethnic wear — elegant Indian boutique with editorial layouts.', tag: 'Varnika Boutique' },
+  { name: 'Artificial Jewelry', icon: '💎', href: '/demos/jewelry', adminHref: '/admin/jewelry?demo=true', gradient: 'from-amber-500/[0.1] via-yellow-500/[0.05] to-amber-500/[0.1]', desc: 'Kundan, bridal sets, bangles — luxury dark-theme jewelry store with gold accents.', tag: 'Aadhya Jewels' },
+  { name: 'Home Bakery', icon: '🧁', href: '/demos/bakery', adminHref: '/admin/bakery?demo=true', gradient: 'from-orange-500/[0.1] via-pink-500/[0.05] to-rose-500/[0.1]', desc: 'Cakes, brownies, cupcakes — cute pastel bakery with custom order forms.', tag: 'SweetCrumb Bakery' },
+  { name: 'Handmade Skincare', icon: '🌿', href: '/demos/skincare', adminHref: '/admin/skincare?demo=true', gradient: 'from-emerald-500/[0.1] via-green-500/[0.05] to-teal-500/[0.1]', desc: 'Natural soaps, body butter, lip balms — clean earthy design with ingredient focus.', tag: 'Nila Naturals' },
+]
+
 const upcomingStores = [
-  { name: 'Bakery & Cafe', icon: '🧁', gradient: 'from-amber-400/15 to-orange-400/15', glow: 'shadow-amber-500/10' },
-  { name: 'Electronics', icon: '📱', gradient: 'from-blue-400/15 to-indigo-400/15', glow: 'shadow-blue-500/10' },
-  { name: 'Grocery & Organic', icon: '🥬', gradient: 'from-green-400/15 to-emerald-400/15', glow: 'shadow-green-500/10' },
-  { name: 'Fashion Boutique', icon: '👗', gradient: 'from-pink-400/15 to-rose-400/15', glow: 'shadow-pink-500/10' },
-  { name: 'Home & Furniture', icon: '🛋️', gradient: 'from-yellow-400/15 to-amber-400/15', glow: 'shadow-yellow-500/10' },
-  { name: 'Salon & Beauty', icon: '💇', gradient: 'from-purple-400/15 to-violet-400/15', glow: 'shadow-purple-500/10' },
+  { name: 'Electronics', icon: '📱', gradient: 'from-blue-400/15 to-indigo-400/15' },
+  { name: 'Grocery & Organic', icon: '🥬', gradient: 'from-green-400/15 to-emerald-400/15' },
+  { name: 'Home & Furniture', icon: '🛋️', gradient: 'from-yellow-400/15 to-amber-400/15' },
+  { name: 'Salon & Beauty', icon: '💇', gradient: 'from-purple-400/15 to-violet-400/15' },
 ]
 
 function useInView(threshold = 0.15) {
@@ -202,54 +208,43 @@ export default function PortfolioPage() {
             <p className="text-gray-400 max-w-xl mx-auto">Explore our live demo stores. Browse products, add to cart, place orders — experience the full flow.</p>
           </div>
 
+          {/* Live Stores Grid */}
           <div className="grid md:grid-cols-3 gap-6">
-            {/* Live Demo - Kids Wear — glass card */}
-            <a
-              href={DEMO_STORE_URL}
-              className={`group relative bg-gradient-to-br from-violet-500/[0.1] via-fuchsia-500/[0.05] to-cyan-500/[0.1] backdrop-blur-xl rounded-2xl p-8 border border-white/[0.1] hover:border-violet-400/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-violet-500/15 cursor-pointer overflow-hidden ${demos.visible ? 'animate-scale-in delay-100' : 'opacity-0'}`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-600/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-              <div className="absolute inset-0 animate-shimmer rounded-2xl" />
-              <div className="absolute top-4 right-4 bg-gradient-to-r from-emerald-400 to-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-emerald-400/30 animate-pulse">LIVE</div>
-              <div className="relative">
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-500 drop-shadow-lg">👶</div>
-                <h3 className="font-heading font-bold text-xl text-white mb-2 group-hover:text-violet-300 transition-colors">Kids Wear Store</h3>
-                <p className="text-sm text-gray-400 mb-6">Full e-commerce with product catalog, cart, checkout, WhatsApp orders & admin dashboard.</p>
-                <span className="inline-flex items-center gap-2 text-violet-400 font-semibold text-sm group-hover:gap-3 transition-all">
-                  Explore Demo <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
-                </span>
-              </div>
-            </a>
-
-            {/* Coming Soon — glass blurred */}
-            {upcomingStores.slice(0, 2).map((store, i) => (
+            {liveStores.map((store, i) => (
               <div
                 key={store.name}
-                className={`relative bg-gradient-to-br ${store.gradient} backdrop-blur-xl rounded-2xl p-8 border border-white/[0.06] select-none overflow-hidden ${demos.visible ? `animate-scale-in delay-${(i + 2) * 100}` : 'opacity-0'}`}
+                className={`group relative bg-gradient-to-br ${store.gradient} backdrop-blur-xl rounded-2xl p-7 border border-white/[0.1] hover:border-violet-400/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-violet-500/10 overflow-hidden ${demos.visible ? 'animate-scale-in' : 'opacity-0'}`}
+                style={{ animationDelay: demos.visible ? `${i * 0.08}s` : '0s' }}
               >
-                <div className="absolute inset-0 bg-[#0c0f1a]/50 backdrop-blur-[4px] rounded-2xl flex items-center justify-center z-10">
-                  <div className="text-center">
-                    <div className="bg-white/[0.08] backdrop-blur-xl rounded-full px-5 py-2 inline-block mb-2 border border-white/[0.08] animate-pulse">
-                      <span className="text-sm font-semibold text-gray-300">Coming Soon</span>
-                    </div>
-                    <p className="text-xs text-gray-500">Under Development</p>
+                <div className="absolute inset-0 animate-shimmer rounded-2xl opacity-50" />
+                <div className="absolute top-4 right-4 bg-gradient-to-r from-emerald-400 to-emerald-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-lg shadow-emerald-400/30 animate-pulse">LIVE</div>
+                <div className="relative">
+                  <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-500">{store.icon}</div>
+                  <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-1">{store.tag}</p>
+                  <h3 className="font-heading font-bold text-lg text-white mb-2 group-hover:text-violet-300 transition-colors">{store.name}</h3>
+                  <p className="text-xs text-gray-400 mb-5 leading-relaxed">{store.desc}</p>
+                  <div className="flex items-center gap-2">
+                    <a href={store.href} className="inline-flex items-center gap-1.5 bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-sm text-white font-semibold px-4 py-2 rounded-full text-xs border border-white/[0.1] hover:border-violet-400/30 transition-all">
+                      View Store <span className="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                    </a>
+                    <a href={store.adminHref} className="inline-flex items-center gap-1.5 text-gray-500 hover:text-violet-400 text-xs font-medium transition-colors">
+                      Admin Demo
+                    </a>
                   </div>
                 </div>
-                <div className="text-5xl mb-4 opacity-30">{store.icon}</div>
-                <h3 className="font-heading font-bold text-xl text-white/30 mb-2">{store.name}</h3>
-                <p className="text-sm text-gray-600">Full-featured store with industry-specific features.</p>
               </div>
             ))}
           </div>
 
-          {/* More Coming Soon Row */}
+          {/* Coming Soon Row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-            {upcomingStores.slice(2).map((store, i) => (
+            {upcomingStores.map((store, i) => (
               <div
                 key={store.name}
-                className={`group relative bg-gradient-to-br ${store.gradient} backdrop-blur-xl rounded-xl p-5 border border-white/[0.06] select-none hover:border-white/[0.1] transition-all overflow-hidden ${demos.visible ? `animate-scale-in delay-${(i + 4) * 100}` : 'opacity-0'}`}
+                className={`group relative bg-gradient-to-br ${store.gradient} backdrop-blur-xl rounded-xl p-5 border border-white/[0.06] select-none hover:border-white/[0.1] transition-all overflow-hidden ${demos.visible ? 'animate-scale-in' : 'opacity-0'}`}
+                style={{ animationDelay: demos.visible ? `${(i + 5) * 0.08}s` : '0s' }}
               >
-                <div className="absolute inset-0 bg-[#0c0f1a]/50 backdrop-blur-[4px] rounded-xl flex items-center justify-center z-10">
+                <div className="absolute inset-0 bg-[#0a0d1a]/50 backdrop-blur-[4px] rounded-xl flex items-center justify-center z-10">
                   <span className="text-xs font-semibold text-gray-400 bg-white/[0.08] backdrop-blur-sm px-3 py-1 rounded-full border border-white/[0.06]">Coming Soon</span>
                 </div>
                 <div className="text-3xl mb-2 opacity-30">{store.icon}</div>
