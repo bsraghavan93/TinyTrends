@@ -140,3 +140,103 @@ h1, h2, h3, h4, h5, h6 {
 .delay-600 { animation-delay: 0.6s; }
 .delay-700 { animation-delay: 0.7s; }
 .delay-800 { animation-delay: 0.8s; }
+
+/* Moving orb animations — each drifts on a unique path */
+@keyframes orbDrift1 {
+  0% { top: 5%; left: 10%; }
+  25% { top: 20%; left: 60%; }
+  50% { top: 55%; left: 75%; }
+  75% { top: 70%; left: 25%; }
+  100% { top: 5%; left: 10%; }
+}
+@keyframes orbDrift2 {
+  0% { top: 60%; right: 5%; }
+  30% { top: 15%; right: 40%; }
+  60% { top: 40%; right: 70%; }
+  100% { top: 60%; right: 5%; }
+}
+@keyframes orbDrift3 {
+  0% { bottom: 5%; left: 50%; }
+  35% { bottom: 40%; left: 10%; }
+  65% { bottom: 60%; left: 70%; }
+  100% { bottom: 5%; left: 50%; }
+}
+@keyframes orbDrift4 {
+  0% { top: 30%; left: 40%; }
+  40% { top: 60%; left: 80%; }
+  70% { top: 10%; left: 60%; }
+  100% { top: 30%; left: 40%; }
+}
+.animate-orb-drift-1 { animation: orbDrift1 25s ease-in-out infinite; }
+.animate-orb-drift-2 { animation: orbDrift2 30s ease-in-out infinite; }
+.animate-orb-drift-3 { animation: orbDrift3 28s ease-in-out infinite; }
+.animate-orb-drift-4 { animation: orbDrift4 22s ease-in-out infinite; }
+
+/* Small particle animations — faster, longer travel */
+@keyframes particle1 {
+  0% { top: 10%; left: 5%; opacity: 0; }
+  10% { opacity: 0.6; }
+  50% { top: 80%; left: 90%; opacity: 0.3; }
+  90% { opacity: 0.6; }
+  100% { top: 10%; left: 5%; opacity: 0; }
+}
+@keyframes particle2 {
+  0% { top: 90%; left: 80%; opacity: 0; }
+  15% { opacity: 0.5; }
+  50% { top: 5%; left: 20%; opacity: 0.2; }
+  85% { opacity: 0.5; }
+  100% { top: 90%; left: 80%; opacity: 0; }
+}
+@keyframes particle3 {
+  0% { top: 50%; left: 95%; opacity: 0; }
+  10% { opacity: 0.4; }
+  50% { top: 20%; left: 5%; opacity: 0.15; }
+  90% { opacity: 0.4; }
+  100% { top: 50%; left: 95%; opacity: 0; }
+}
+@keyframes particle4 {
+  0% { top: 5%; left: 50%; opacity: 0; }
+  20% { opacity: 0.5; }
+  50% { top: 95%; left: 40%; opacity: 0.2; }
+  80% { opacity: 0.5; }
+  100% { top: 5%; left: 50%; opacity: 0; }
+}
+@keyframes particle5 {
+  0% { top: 70%; left: 10%; opacity: 0; }
+  15% { opacity: 0.4; }
+  50% { top: 15%; left: 85%; opacity: 0.2; }
+  85% { opacity: 0.4; }
+  100% { top: 70%; left: 10%; opacity: 0; }
+}
+.animate-particle-1 { animation: particle1 12s ease-in-out infinite; }
+.animate-particle-2 { animation: particle2 15s ease-in-out infinite; }
+.animate-particle-3 { animation: particle3 18s ease-in-out infinite; }
+.animate-particle-4 { animation: particle4 10s ease-in-out infinite; }
+.animate-particle-5 { animation: particle5 14s ease-in-out infinite; }
+
+/* Diagonal lines moving */
+@keyframes linesMove {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+.animate-lines-move { animation: linesMove 20s linear infinite; }
+
+/* Background sweep — radial gradient position shift */
+@keyframes bgSweep {
+  0% { --sweep-x: 20%; --sweep-y: 20%; }
+  25% { --sweep-x: 70%; --sweep-y: 30%; }
+  50% { --sweep-x: 80%; --sweep-y: 70%; }
+  75% { --sweep-x: 30%; --sweep-y: 80%; }
+  100% { --sweep-x: 20%; --sweep-y: 20%; }
+}
+@property --sweep-x {
+  syntax: '<percentage>';
+  initial-value: 30%;
+  inherits: false;
+}
+@property --sweep-y {
+  syntax: '<percentage>';
+  initial-value: 30%;
+  inherits: false;
+}
+.animate-bg-sweep { animation: bgSweep 15s ease-in-out infinite; }

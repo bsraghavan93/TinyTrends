@@ -66,22 +66,38 @@ export default function PortfolioPage() {
   const why = useInView()
 
   return (
-    <div className="min-h-screen bg-[#0c0f1a] text-white overflow-hidden">
-      {/* Mesh gradient background */}
+    <div className="min-h-screen bg-[#0a0d1a] text-white overflow-hidden">
+      {/* Animated mesh gradient background */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-950/80 via-[#0c0f1a] to-purple-950/60" />
+        <div className="absolute inset-0 bg-[#0a0d1a]" />
+        {/* Sweeping gradient that moves diagonally */}
+        <div className="absolute inset-0 animate-bg-sweep opacity-70" style={{
+          background: 'radial-gradient(ellipse 80% 60% at var(--sweep-x, 30%) var(--sweep-y, 30%), rgba(99,102,241,0.08) 0%, transparent 70%)',
+        }} />
+        {/* Pulsing grid */}
         <div className="absolute inset-0 animate-grid-pulse" style={{
-          backgroundImage: 'linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px)',
           backgroundSize: '50px 50px',
+        }} />
+        {/* Diagonal moving lines */}
+        <div className="absolute inset-0 animate-lines-move opacity-[0.03]" style={{
+          backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(139,92,246,0.5) 40px, rgba(139,92,246,0.5) 41px)',
+          backgroundSize: '200% 200%',
         }} />
       </div>
 
-      {/* Colorful floating orbs */}
+      {/* Animated moving orbs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[10%] left-[15%] w-[600px] h-[600px] bg-gradient-to-br from-violet-600/[0.07] to-fuchsia-600/[0.05] rounded-full blur-[120px] animate-float-slow" />
-        <div className="absolute top-[50%] right-[10%] w-[500px] h-[500px] bg-gradient-to-br from-cyan-500/[0.06] to-blue-600/[0.04] rounded-full blur-[100px] animate-float-slow" style={{ animationDelay: '2s' }} />
-        <div className="absolute bottom-[10%] left-[30%] w-[400px] h-[400px] bg-gradient-to-br from-rose-500/[0.05] to-orange-500/[0.03] rounded-full blur-[100px] animate-float" style={{ animationDelay: '4s' }} />
-        <div className="absolute top-[30%] right-[40%] w-[300px] h-[300px] bg-gradient-to-br from-emerald-500/[0.04] to-teal-500/[0.03] rounded-full blur-[80px] animate-float" style={{ animationDelay: '1s' }} />
+        <div className="absolute w-[600px] h-[600px] bg-gradient-to-br from-violet-600/[0.08] to-fuchsia-600/[0.05] rounded-full blur-[120px] animate-orb-drift-1" />
+        <div className="absolute w-[500px] h-[500px] bg-gradient-to-br from-cyan-500/[0.07] to-blue-600/[0.04] rounded-full blur-[100px] animate-orb-drift-2" />
+        <div className="absolute w-[450px] h-[450px] bg-gradient-to-br from-rose-500/[0.06] to-orange-500/[0.03] rounded-full blur-[100px] animate-orb-drift-3" />
+        <div className="absolute w-[350px] h-[350px] bg-gradient-to-br from-emerald-500/[0.05] to-teal-500/[0.03] rounded-full blur-[90px] animate-orb-drift-4" />
+        {/* Small bright moving particles */}
+        <div className="absolute w-2 h-2 bg-violet-400/30 rounded-full blur-[1px] animate-particle-1" />
+        <div className="absolute w-1.5 h-1.5 bg-cyan-400/25 rounded-full blur-[1px] animate-particle-2" />
+        <div className="absolute w-2 h-2 bg-fuchsia-400/20 rounded-full blur-[1px] animate-particle-3" />
+        <div className="absolute w-1 h-1 bg-amber-400/30 rounded-full animate-particle-4" />
+        <div className="absolute w-1.5 h-1.5 bg-rose-400/25 rounded-full blur-[1px] animate-particle-5" />
       </div>
 
       {/* Nav — glass */}
@@ -175,33 +191,6 @@ export default function PortfolioPage() {
 
         {/* Decorative glow under hero */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
-      </section>
-
-      {/* Try Admin Section */}
-      <section className="py-12 relative z-10">
-        <div className="max-w-2xl mx-auto px-4">
-          <div className="relative bg-gradient-to-r from-violet-500/[0.08] to-cyan-500/[0.08] backdrop-blur-xl rounded-2xl p-6 border border-white/[0.08] overflow-hidden group hover:border-violet-400/20 transition-all duration-500">
-            <div className="absolute inset-0 animate-shimmer opacity-50" />
-            <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-violet-500/30 to-cyan-500/30 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/10">
-                  <span className="text-lg">🔐</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-white text-sm">Try the Admin Portal</p>
-                  <p className="text-xs text-gray-400">Credentials auto-filled for demo</p>
-                </div>
-              </div>
-              <a
-                href="/admin?demo=true"
-                className="inline-flex items-center gap-2 bg-white/[0.08] hover:bg-white/[0.12] backdrop-blur-sm text-white font-semibold px-5 py-2.5 rounded-full border border-white/[0.1] hover:border-violet-400/30 text-sm transition-all hover:-translate-y-0.5"
-              >
-                Open Admin
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-              </a>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Live Demo Showcase */}
