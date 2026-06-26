@@ -88,6 +88,7 @@ const STEPS = [
 /* ------------------------------------------------------------------ */
 
 function Label({ children }: { children: React.ReactNode }) {
+  if (!children) return null
   return <label className="block text-sm font-medium text-gray-300 mb-1.5">{children}</label>
 }
 
@@ -247,7 +248,6 @@ function validateStep(step: number, data: FormData): Errors {
 
   if (step === 5) {
     if (!data.style_preference) err.style_preference = 'Please select a style'
-    if (!data.budget_range) err.budget_range = 'Please select a budget range'
   }
 
   return err
@@ -615,15 +615,20 @@ export default function GetQuotePage() {
                 placeholder="Share any websites or Instagram pages you like..."
               />
 
-              <PillGroup
-                label="Budget Range"
-                name="budget_range"
-                options={['Under ₹10,000', '₹10,000–₹15,000', '₹15,000–₹25,000', '₹25,000+', 'Not sure']}
-                value={form.budget_range}
-                onChange={set}
-                error={errors.budget_range}
-                required
-              />
+              <div>
+                <p className="text-white font-semibold text-lg mb-1">One size fits all? We don&apos;t believe it.</p>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Is there a price range you&apos;d be comfortable investing in? <span className="text-gray-500">(Optional)</span>
+                </label>
+                <p className="text-xs text-gray-500 mb-3">This helps us recommend the right features without suggesting more than you need. Leave blank if you&apos;d prefer us to recommend the best option first.</p>
+                <InputField
+                  label=""
+                  name="budget_range"
+                  value={form.budget_range}
+                  onChange={set}
+                  placeholder="Example: ₹8,000–₹12,000"
+                />
+              </div>
 
               <PillGroup
                 label="Timeline"
