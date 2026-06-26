@@ -7,7 +7,6 @@ import FeaturedProducts from '@/components/FeaturedProducts'
 import Collections from '@/components/Collections'
 import ReviewsSection from '@/components/ReviewsSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
-import PortfolioBanner from '@/components/PortfolioBanner'
 import Footer from '@/components/Footer'
 
 export default function HomePage() {
@@ -20,7 +19,6 @@ export default function HomePage() {
       <Collections />
       <TestimonialsSection />
       <ReviewsSection />
-      <PortfolioBanner />
       <Footer />
     </>
   )
