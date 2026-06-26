@@ -9,11 +9,11 @@ export default function DemoBanner() {
       </span>
       <span className="text-gray-500 mx-2">|</span>
       <span className="text-gray-300">Built by </span>
-      <a href="/portfolio" className="text-teal-400 font-semibold hover:text-teal-300 transition-colors">
+      <a href="/" className="text-teal-400 font-semibold hover:text-teal-300 transition-colors">
         PixelCraft Studios
       </a>
       <span className="text-gray-300"> — </span>
-      <a href="/portfolio" className="text-coral-400 font-semibold hover:text-coral-300 transition-colors">
+      <a href="/" className="text-coral-400 font-semibold hover:text-coral-300 transition-colors">
         Want one for your brand? &rarr;
       </a>
     </div>

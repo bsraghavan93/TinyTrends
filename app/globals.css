@@ -55,3 +55,88 @@ h1, h2, h3, h4, h5, h6 {
 .animate-fade-in { animation: fadeIn 0.3s ease-out; }
 .animate-bounce-in { animation: bounceIn 0.5s ease-out; }
 .animate-float { animation: float 3s ease-in-out infinite; }
+
+/* Portfolio page animations */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(78, 205, 196, 0.15); }
+  50% { box-shadow: 0 0 40px rgba(78, 205, 196, 0.3); }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.08; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-15px) rotate(1deg); }
+  66% { transform: translateY(-5px) rotate(-1deg); }
+}
+
+@keyframes textGlow {
+  0%, 100% { text-shadow: 0 0 10px rgba(255, 107, 107, 0.3); }
+  50% { text-shadow: 0 0 20px rgba(78, 205, 196, 0.4), 0 0 40px rgba(78, 205, 196, 0.1); }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}
+.animate-glow { animation: glow 3s ease-in-out infinite; }
+.animate-slide-in-up { animation: slideInUp 0.7s ease-out both; }
+.animate-slide-in-left { animation: slideInLeft 0.7s ease-out both; }
+.animate-slide-in-right { animation: slideInRight 0.7s ease-out both; }
+.animate-scale-in { animation: scaleIn 0.6s ease-out both; }
+.animate-orbit { animation: orbit 20s linear infinite; }
+.animate-grid-pulse { animation: gridPulse 4s ease-in-out infinite; }
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+.animate-float-slow { animation: floatSlow 6s ease-in-out infinite; }
+.animate-text-glow { animation: textGlow 4s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }

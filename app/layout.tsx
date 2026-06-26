@@ -3,8 +3,8 @@ import './globals.css'
 import { CartProvider } from '@/lib/cart'
 
 export const metadata: Metadata = {
-  title: 'TinyTrend Kids — Where Little Fashion Begins',
-  description: 'Adorable, comfortable, and trendy clothing for kids aged 0–14. Shop dresses, tops, ethnic wear, and more.',
+  title: 'PixelCraft Studios — We Build Stunning E-Commerce Stores',
+  description: 'Custom e-commerce store development with modern design, admin dashboard, and full source code ownership. Get your online store live in 7 days.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

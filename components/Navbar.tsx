@@ -16,7 +16,7 @@ export default function Navbar() {
       <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/store" className="flex items-center gap-2">
               <div className="w-9 h-9 bg-coral-400 rounded-full flex items-center justify-center">
                 <span className="text-white font-heading font-bold text-sm">TT</span>
               </div>
@@ -26,7 +26,7 @@ export default function Navbar() {
             </Link>
 
             <div className="hidden md:flex items-center gap-8">
-              <Link href="/" className="text-charcoal/70 hover:text-coral-400 font-medium transition-colors">Home</Link>
+              <Link href="/store" className="text-charcoal/70 hover:text-coral-400 font-medium transition-colors">Home</Link>
               <Link href="/products" className="text-charcoal/70 hover:text-coral-400 font-medium transition-colors">Shop</Link>
               <a href="#collections" className="text-charcoal/70 hover:text-coral-400 font-medium transition-colors">Collections</a>
               <a href="#reviews" className="text-charcoal/70 hover:text-coral-400 font-medium transition-colors">Reviews</a>
@@ -60,7 +60,7 @@ export default function Navbar() {
           {menuOpen && (
             <div className="md:hidden pb-4 animate-slide-up">
               <div className="flex flex-col gap-3">
-                <Link href="/" onClick={() => setMenuOpen(false)} className="text-charcoal/70 hover:text-coral-400 font-medium py-2">Home</Link>
+                <Link href="/store" onClick={() => setMenuOpen(false)} className="text-charcoal/70 hover:text-coral-400 font-medium py-2">Home</Link>
                 <Link href="/products" onClick={() => setMenuOpen(false)} className="text-charcoal/70 hover:text-coral-400 font-medium py-2">Shop</Link>
                 <a href="#collections" onClick={() => setMenuOpen(false)} className="text-charcoal/70 hover:text-coral-400 font-medium py-2">Collections</a>
                 <a href="#reviews" onClick={() => setMenuOpen(false)} className="text-charcoal/70 hover:text-coral-400 font-medium py-2">Reviews</a>
