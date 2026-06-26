@@ -491,6 +491,13 @@ export default function JewelryStorePage() {
         </div>
       )}
 
+      {/* Floating Admin CTA */}
+      <a href="/admin/jewelry?demo=true" className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#1A1A1A]/90 backdrop-blur-md text-[#D4AF37] px-5 py-3 rounded-full shadow-xl shadow-black/30 border border-[#D4AF37]/30 hover:border-[#D4AF37]/60 hover:-translate-y-1 transition-all group animate-bounce-in">
+        <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" />
+        <span className="text-sm font-semibold">Try Admin Portal</span>
+        <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+      </a>
+
       {/* ─── CART SIDEBAR ─── */}
       {cartOpen && (
         <div className="fixed inset-0 z-[60]" onClick={() => setCartOpen(false)}>
